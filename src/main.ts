@@ -4,12 +4,9 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import globalComponent from './components/index'
+import 'virtual:svg-icons-register'
 
 const app = createApp(App)
 
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
-
-console.log(import.meta.env)
+app.use(createPinia()).use(router).use(globalComponent).mount('#app')
