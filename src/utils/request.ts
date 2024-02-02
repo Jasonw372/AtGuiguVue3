@@ -34,6 +34,7 @@ const request = axios.create({
 
 request.interceptors.request.use((config) => {
   // headers属性请求头，携带公共参数给服务器
+  console.log(config)
   return config
 })
 
