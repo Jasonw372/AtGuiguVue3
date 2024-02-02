@@ -1,7 +1,83 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { User, Lock } from '@element-plus/icons-vue'
+import { reactive } from 'vue'
+
+const loginForm = reactive({
+  username: '',
+  password: '',
+})
+
+const login = () => {
+  console.log(loginForm)
+}
+</script>
 
 <template>
-  <h1>Login</h1>
+  <div class="login_container">
+    <el-row>
+      <el-col :span="12" :xs="0"></el-col>
+      <el-col :span="12">
+        <el-form class="login-form" :model="loginForm">
+          <h1>登录</h1>
+          <h2>欢迎来到硅谷甄选</h2>
+
+          <el-form-item>
+            <el-input
+              type="text"
+              :prefix-icon="User"
+              v-model="loginForm.username"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item>
+            <el-input
+              type="password"
+              :prefix-icon="Lock"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="primary" class="login-btn" @click="login">
+              登录
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.login_container {
+  width: 100%;
+  min-height: 100vh;
+  background: url('@/assets/images/background.jpg');
+
+  .login-form {
+    position: relative;
+    width: 80%;
+    top: 20vh;
+    padding: 60px;
+
+    background: url('@/assets/images/login_form.png');
+    background-size: cover;
+
+    h1 {
+      color: aliceblue;
+      font-size: 40px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: aliceblue;
+      margin: 30px 0;
+    }
+
+    .login-btn {
+      width: 100%;
+    }
+  }
+}
+</style>
