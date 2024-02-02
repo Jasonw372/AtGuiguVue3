@@ -4,6 +4,7 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
+import { getTime } from '@/utils/time'
 
 const $router = useRouter()
 
@@ -26,7 +27,9 @@ const login = async () => {
 
     ElNotification({
       type: 'success',
-      message: '登录成功',
+      title: `HI,${getTime()}好`,
+      message: '欢迎回来',
+
     })
 
 

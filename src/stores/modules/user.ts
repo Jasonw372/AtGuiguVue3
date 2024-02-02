@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import type { LoginForm } from '@/api/user/type'
 import { reqLogin } from '@/api/user'
+import type { UserState } from '@/stores/modules/types/type'
 
 const useUserStore = defineStore('User', {
   // 数据存储地址
-  state: () => {
+  state: (): UserState => {
     return {
       token: '',
     }
