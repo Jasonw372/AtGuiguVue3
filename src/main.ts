@@ -6,13 +6,14 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import globalComponent from './components/index'
 import 'virtual:svg-icons-register'
 import '@/styles/index.scss'
+import 'element-plus/dist/index.css'
 import request from '@/utils/request'
 const app = createApp(App)
 
 app.use(createPinia()).use(router).use(globalComponent).mount('#app')
 request({
-  url: '/user/login',
-  method: 'get',
+  url: '/api/user/login',
+  method: 'post',
   data: {
     name: '123',
     age: 12,
@@ -22,5 +23,5 @@ request({
     console.log(res)
   })
   .catch((err) => {
-    console.log(err)
+
   })
