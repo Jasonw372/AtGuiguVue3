@@ -5,9 +5,9 @@ export interface LoginForm {
   password: string
 }
 
-type token = string
+export type LoginData = string
 
-export type LoginResponseData = AxiosResponseData<token>
+export type LoginResponseData = AxiosResponseData<LoginData>
 
 interface userInfo {
   userId: number

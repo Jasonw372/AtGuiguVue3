@@ -1,14 +1,43 @@
 <script setup lang="ts">
+import useUserStore from '@/stores/modules/user'
 import { User, Lock } from '@element-plus/icons-vue'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
 
-const loginForm = reactive({
+const $router = useRouter()
+
+const buttonLoading = ref<boolean>(false)
+
+const loginForm = reactive<{
+  username: string
+  password: string
+}>({
   username: '',
   password: '',
 })
+const userStore = useUserStore()
 
-const login = () => {
-  console.log(loginForm)
+const login = async () => {
+  buttonLoading.value = true
+  try {
+    await userStore.userLogin(loginForm)
+    $router.push({ path: '/' })
+
+    ElNotification({
+      type: 'success',
+      message: '登录成功',
+    })
+
+
+  } catch (error) {
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
+    })
+  }
+
+  buttonLoading.value = false
 }
 </script>
 
@@ -39,7 +68,7 @@ const login = () => {
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" class="login-btn" @click="login">
+            <el-button :loading="buttonLoading" type="primary" class="login-btn" @click="login">
               登录
             </el-button>
           </el-form-item>
