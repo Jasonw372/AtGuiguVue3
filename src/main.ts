@@ -7,21 +7,17 @@ import globalComponent from './components/index'
 import 'virtual:svg-icons-register'
 import '@/styles/index.scss'
 import 'element-plus/dist/index.css'
-import request from '@/utils/request'
+import { reqLogin } from '@/api/user'
 const app = createApp(App)
 
 app.use(createPinia()).use(router).use(globalComponent).mount('#app')
-request({
-  url: '/api/user/login',
-  method: 'post',
-  data: {
-    name: '123',
-    age: 12,
-  },
+
+reqLogin({
+  username: 'admin',
+  password: '111111',
 })
   .then((res) => {
-    console.log(res)
+    console.log(res.code)
+    console.log(res.data)
   })
-  .catch((err) => {
-
-  })
+  .catch(() => {})
