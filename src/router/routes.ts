@@ -1,4 +1,6 @@
-export const constantRoute = [
+import type { RouteRecordRaw } from 'vue-router'
+
+export const constantRoute: readonly RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
@@ -7,7 +9,8 @@ export const constantRoute = [
   {
     path: '/',
     name: 'home',
-    component: () => import('@/views/home/index.vue'),
+    component: () => import('@/layout/index.vue'),
+    children: [],
   },
   {
     path: '/404',

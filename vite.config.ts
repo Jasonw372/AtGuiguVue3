@@ -7,6 +7,8 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
 import path from 'path'
+import DefineOptions from 'unplugin-vue-define-options/vite'
+
 // https://vitejs.dev/config/
 export default ({ command }: ConfigEnv): UserConfigExport => {
   return {
@@ -20,6 +22,7 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
     },
     plugins: [
       vue(),
+      DefineOptions(),
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),

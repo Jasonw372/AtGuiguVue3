@@ -1,6 +1,7 @@
 // @see https://eslint.bootcss.com/docs/rules/
 
 module.exports = {
+  globals: { defineOptions: 'writable' },
   env: {
     browser: true,
     es2021: true,
