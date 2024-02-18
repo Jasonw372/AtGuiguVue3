@@ -1,11 +1,22 @@
 <script setup lang="ts">
+import useLayOutSettingStore from '@/stores/modules/setting'
 defineOptions({
   name: 'Setting',
 })
+
+const layoutSettingStore = useLayOutSettingStore()
+const updateRefresh = () => {
+  layoutSettingStore.refresh = !layoutSettingStore.refresh
+}
 </script>
 
 <template>
-  <el-button size="small" icon="Refresh" circle></el-button>
+  <el-button
+    size="small"
+    icon="Refresh"
+    @click="updateRefresh"
+    circle
+  ></el-button>
   <el-button size="small" icon="FullScreen" circle></el-button>
   <el-button size="small" icon="Setting" circle></el-button>
   <img

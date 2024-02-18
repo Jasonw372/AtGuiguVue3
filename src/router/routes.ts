@@ -16,7 +16,6 @@ export const constantRoute: readonly RouteRecordRaw[] = [
     component: () => import('@/layout/index.vue'),
     redirect: '/home',
     meta: {
-      title: 'Layout',
       hidden: false,
       icon: 'Avatar',
     },
