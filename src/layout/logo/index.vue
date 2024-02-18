@@ -21,7 +21,7 @@ defineOptions({
   color: white;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 12px;
 
   img {
     width: 40px;
@@ -30,7 +30,7 @@ defineOptions({
 
   p {
     font-size: $base-logo-title-fontSize;
-    margin-left: 10px;
+    margin-left: 12px;
   }
 }
 </style>
