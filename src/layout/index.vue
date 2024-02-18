@@ -1,18 +1,35 @@
 <script setup lang="ts">
 import Logo from '@/layout/logo/index.vue'
+import Menu from '@/layout/menu/index.vue'
+import Main from '@/layout/main/index.vue'
+import useUserStore from '@/stores/modules/user'
+import { useRoute } from 'vue-router'
+
+const store = useUserStore()
+const menuRoutes = store.menuRoutes
+
+const $route = useRoute()
 </script>
 
 <template>
   <div class="layout_container">
     <div class="layout_slider">
       <Logo></Logo>
+      <el-scrollbar class="scrollbar">
+        <el-menu
+          background-color="#001529"
+          text-color="white"
+          active-text-color="yellowgreen"
+          :default-active="$route.path"
+        >
+          <Menu :menuList="menuRoutes" />
+        </el-menu>
+      </el-scrollbar>
     </div>
     <div class="layout_body">
-      <div class="layout_tabbar">
-        顶部导航
-      </div>
+      <div class="layout_tabbar">顶部导航</div>
       <div class="layout_main">
-        <div style="height: 10000px;">我是内容</div>
+        <Main></Main>
       </div>
     </div>
   </div>
@@ -22,20 +39,28 @@ import Logo from '@/layout/logo/index.vue'
 .layout_container {
   width: 100%;
   min-height: 100vh;
+
   display: flex;
 
   .layout_slider {
     width: $base-menu-width;
     min-height: 100vh;
     background-color: $base-menu-background-color;
+
+    .scrollbar {
+      width: $base-menu-width;
+      height: calc(100vh - $base-menu-logo-height);
+
+      .el-menu {
+        border-right: none;
+      }
+    }
   }
 
   .layout_body {
     width: 100%;
 
-
     .layout_tabbar {
-
       position: sticky;
       top: 0;
       width: 100%;

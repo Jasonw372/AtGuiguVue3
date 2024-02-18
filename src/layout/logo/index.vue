@@ -3,15 +3,13 @@ import { defineOptions } from 'vue'
 import setting from '@/setting'
 
 defineOptions({
-  name: 'logo',
+  name: 'Logo',
 })
-
-
 </script>
 
 <template>
   <div class="logo" v-if="!setting.logoHidden">
-    <img :src="setting.logo" alt="">
+    <img :src="setting.logo" alt="" />
     <p>{{ setting.title }}</p>
   </div>
 </template>
