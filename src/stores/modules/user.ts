@@ -8,7 +8,7 @@ const useUserStore = defineStore('User', {
   // 数据存储地址
   state: (): UserState => {
     return {
-      token: '',
+      token: localStorage.getItem('token') || '',
       menuRoutes: constantRoute,
       avatar: '',
       username: '',
@@ -20,14 +20,16 @@ const useUserStore = defineStore('User', {
     async userLogin(data: LoginForm) {
       const result = await reqLogin(data)
       if (result.code === 200) {
-        this.token = result.data.token
+        this.token = result.data.token!
+        // 写入localStorage
+        localStorage.setItem('token', this.token)
         return 'ok'
       } else {
         throw new Error(result.data.message)
       }
     },
 
-    async userLogout() {
+    userLogout() {
       this.token = ''
       this.username = ''
       this.avatar = ''
@@ -52,7 +54,6 @@ const useUserStore = defineStore('User', {
     },
   },
   getters: {},
-  persist: true,
 })
 
 export default useUserStore

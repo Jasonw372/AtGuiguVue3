@@ -1,6 +1,11 @@
 // 路由鉴权
 import router from '@/router'
 import { start, close } from '@/router/nprogress'
+import useUserStore from '@/stores/modules/user'
+import pinia from '@/stores'
+import setting from '@/setting'
+
+const userStore = useUserStore(pinia)
 
 router.beforeEach((to, from, next) => {
   /*
@@ -13,7 +18,40 @@ router.beforeEach((to, from, next) => {
 
   // 开启进度条
   start()
-  console.log(to, from)
+  document.title = setting.title + ' - ' + to.meta.title
+  const token = userStore.token
+  const username = userStore.username
+
+  if (token) {
+    if (to.path === '/login') {
+      next({ path: '/' })
+    } else {
+      if (username) {
+        next()
+      } else {
+        userStore
+          .userInfo()
+          .then(() => {
+            next()
+          })
+          .catch(() => {
+            next({ path: '/login' })
+          })
+      }
+    }
+  } else {
+    userStore.userLogout()
+
+    if (to.path === '/login') {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.path },
+      })
+    }
+  }
+
   // 放行
   next()
 })

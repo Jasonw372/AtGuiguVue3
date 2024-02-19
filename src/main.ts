@@ -7,11 +7,8 @@ import 'virtual:svg-icons-register'
 import '@/styles/index.scss'
 import 'element-plus/dist/index.css'
 import pinia from '@/stores'
-
-const app = createApp(App)
-
-app.use(pinia).use(router)
-// 导入路由鉴权
 import './permission'
 
-app.use(globalComponent).mount('#app')
+const app = createApp(App)
+// 导入路由鉴权
+app.use(pinia).use(router).use(globalComponent).mount('#app')
