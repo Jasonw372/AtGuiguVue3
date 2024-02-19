@@ -10,4 +10,8 @@ import pinia from '@/stores'
 
 const app = createApp(App)
 
-app.use(pinia).use(router).use(globalComponent).mount('#app')
+app.use(pinia).use(router)
+// 导入路由鉴权
+import './permission'
+
+app.use(globalComponent).mount('#app')
