@@ -4,12 +4,14 @@ import type {
   LoginForm,
   LoginResponseData,
   UserInfoResponseData,
+  LogoutResponseData,
 } from '@/api/user/type'
 
 // 统一管理接口
 enum API {
-  LOGIN_URL = '/user/login',
-  USERINFO_URL = '/user/info',
+  LOGIN_URL = '/admin/acl/index/login',
+  USERINFO_URL = '/admin/acl/index/info',
+  LOGOUT_URL = '/admin/acl/index/logout',
 }
 
 export const reqLogin = (data: LoginForm): LoginResponseData => {
@@ -19,4 +21,8 @@ export const reqLogin = (data: LoginForm): LoginResponseData => {
 
 export const reqUserInfo = (): UserInfoResponseData => {
   return request.get(API.USERINFO_URL)
+}
+
+export const reqLogout = (): LogoutResponseData => {
+  return request.post(API.LOGOUT_URL)
 }

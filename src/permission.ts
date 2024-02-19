@@ -7,7 +7,7 @@ import setting from '@/setting'
 
 const userStore = useUserStore(pinia)
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   /*
       to: Route: 即将要进入的目标 路由对象
       from: Route: 当前导航正要离开的路由
@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    userStore.userLogout()
+    await userStore.userLogout()
 
     if (to.path === '/login') {
       next()

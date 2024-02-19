@@ -6,4 +6,6 @@ export interface UserState {
   avatar: string
   username: string
   roles: string[]
+  buttons: string[]
+  routes: string[]
 }

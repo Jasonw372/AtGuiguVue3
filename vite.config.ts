@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { ConfigEnv, defineConfig, UserConfigExport } from 'vite'
+import { ConfigEnv, defineConfig, UserConfigExport, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -10,7 +10,10 @@ import path from 'path'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 
 // https://vitejs.dev/config/
-export default ({ command }: ConfigEnv): UserConfigExport => {
+export default ({ command, mode }: ConfigEnv): UserConfigExport => {
+
+  const env = loadEnv(mode, process.cwd())
+
   return {
     css: {
       preprocessorOptions: {
@@ -42,6 +45,18 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+    server: {
+      proxy: {
+        [env.VITE_APP_BASE_API]: {
+          // 代理地址
+          target: env.VITE_SERVE,
+          // 是否跨域
+          changeOrigin: true,
+          // 重写路径
+          rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_BASE_API}`), ''),
+        },
       },
     },
   }

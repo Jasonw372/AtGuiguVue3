@@ -1,32 +1,20 @@
-import type { AxiosResponseData } from '@/api/type'
+import type { AxiosResponseData, ResponseData } from '@/api/type'
 
 export interface LoginForm {
   username: string
   password: string
 }
 
-export type LoginData = {
-  token: string | null
-  message?: string
-}
-
-export type LoginResponseData = AxiosResponseData<LoginData>
+type token = string
 
 interface userInfo {
-  userId: number
+  name: string
   avatar: string
-  username: string
-  password: string
-  desc: string
   roles: string[]
-  buttons: string[]
+  button: string[]
   routes: string[]
-  token: string
 }
 
-type UserData = {
-  checkUser: userInfo | null
-  message?: string
-}
-
-export type UserInfoResponseData = AxiosResponseData<UserData>
+export type UserInfoResponseData = AxiosResponseData<ResponseData<userInfo>>
+export type LoginResponseData = AxiosResponseData<ResponseData<token>>
+export type LogoutResponseData = AxiosResponseData<ResponseData<null>>

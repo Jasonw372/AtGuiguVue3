@@ -1,6 +1,8 @@
-export interface ResponseData<T> {
+export type ResponseData<T> = {
   code: number
   data: T
+  message: string
+  ok: boolean
 }
 
-export type AxiosResponseData<T> = Promise<ResponseData<T>>
+export type AxiosResponseData<T> = Promise<T>
