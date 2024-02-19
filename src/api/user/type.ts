@@ -5,7 +5,10 @@ export interface LoginForm {
   password: string
 }
 
-export type LoginData = string
+export type LoginData = {
+  token: string | null
+  message?: string
+}
 
 export type LoginResponseData = AxiosResponseData<LoginData>
 
@@ -21,8 +24,9 @@ interface userInfo {
   token: string
 }
 
-interface user {
-  checkUser: userInfo[]
+type UserData = {
+  checkUser: userInfo | null
+  message?: string
 }
 
-export type UserInfoResponseData = AxiosResponseData<user>
+export type UserInfoResponseData = AxiosResponseData<UserData>

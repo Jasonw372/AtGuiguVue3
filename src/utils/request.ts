@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import useUserStore from '@/stores/modules/user'
 
 class ErrorMessageProcesses {
   public static errorMessages: Record<number, string> = {
@@ -34,7 +35,11 @@ const request = axios.create({
 
 request.interceptors.request.use((config) => {
   // headers属性请求头，携带公共参数给服务器
-  console.log(config)
+  const userStore = useUserStore()
+  if (userStore.token) {
+    config.headers.token = userStore.token
+  }
+
   return config
 })
 

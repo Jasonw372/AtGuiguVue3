@@ -2,12 +2,13 @@
 import useUserStore from '@/stores/modules/user'
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 import type { ElForm } from 'element-plus/lib/components/index.js'
 
 const $router = useRouter()
+const $route = useRoute()
 
 const buttonLoading = ref<boolean>(false)
 
@@ -29,7 +30,8 @@ const login = async () => {
 
   try {
     await userStore.userLogin(loginForm)
-    $router.push({ path: '/' })
+    const redirect = $route.query.redirect as string | undefined
+    $router.push({ path: '/', query: { redirect: redirect || '/' } })
 
     ElNotification({
       type: 'success',
@@ -37,7 +39,6 @@ const login = async () => {
       message: '欢迎回来',
     })
     buttonLoading.value = false
-
   } catch (error) {
     ElNotification({
       type: 'error',
@@ -92,7 +93,12 @@ const rules = {
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12">
-        <el-form class="login-form" :model="loginForm" :ref="loginFormRef" :rules="rules">
+        <el-form
+          class="login-form"
+          :model="loginForm"
+          :ref="loginFormRef"
+          :rules="rules"
+        >
           <h1>登录</h1>
           <h2>欢迎来到硅谷甄选</h2>
 
@@ -114,7 +120,12 @@ const rules = {
           </el-form-item>
 
           <el-form-item>
-            <el-button :loading="buttonLoading" type="primary" class="login-btn" @click="login">
+            <el-button
+              :loading="buttonLoading"
+              type="primary"
+              class="login-btn"
+              @click="login"
+            >
               登录
             </el-button>
           </el-form-item>
